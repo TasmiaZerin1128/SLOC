@@ -2,8 +2,6 @@
 extern crate clap;
 extern crate atty;
 extern crate chrono;
-extern crate chrono_tz;
-extern crate colored;
 extern crate regex;
 mod args;
 mod converter;

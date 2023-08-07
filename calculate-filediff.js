@@ -23,15 +23,14 @@ const differences = diffLines(file1, file2);
 let addedLines = '', removedLines = '';
 let addCount = 0, removeCount = 0;
 
-// Print the differences
 differences.forEach((part) => {
   if (part.added) {
     addedLines += part.value;
-    addCount += part.value.split(/\r?\n/).length;
+    addCount += part.value.split('\n').filter(Boolean).length;
     } 
     else if (part.removed) {
         removedLines += part.value;
-        removeCount += part.value.split(/\r?\n/).length;
+        removeCount += part.value.split('\n').filter(Boolean).length;
     }
 });
 

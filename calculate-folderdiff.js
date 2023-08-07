@@ -3,7 +3,7 @@ const path = require('path');
 const { diffLines } = require('diff');
 const colors = require('colors');
 
-function compareFolders(folder1Path, folder2Path) {
+function compareFolders(folder1Path, folder2Path, totalAdd, totalRemove) {
   const filelist1 = fs.readdirSync(folder1Path);
   const filelist2 = fs.readdirSync(folder2Path);
 
@@ -13,20 +13,17 @@ function compareFolders(folder1Path, folder2Path) {
     const file1Path = path.join(folder1Path, filelist1[i]);
     const stat1 = fs.statSync(file1Path);
     const file2Path = path.join(folder2Path, filelist2[i]);
-    // const stats2 = fs.statSync(file2Path);
 
     if (stat1.isDirectory()) {
-      // Recursively traverse subfolders
-      compareFolders(file1Path, file2Path);
+      compareFolders(file1Path, file2Path, totalAdd, totalRemove);
     } else if (stat1.isFile()) {
-      // Handle file processing here (e.g., print file path)
-      compareFiles(file1Path, file2Path);
+      compareFiles(file1Path, file2Path, totalAdd, totalRemove);
     }
   }
 }
 
 
-function compareFiles(fileVersion1Path, fileVersion2Path) {
+function compareFiles(fileVersion1Path, fileVersion2Path, totalAdd, totalRemove) {
 
 try {
     file1 = fs.readFileSync(fileVersion1Path, 'utf8');
@@ -49,19 +46,32 @@ let addCount = 0, removeCount = 0;
 differences.forEach((part) => {
   if (part.added) {
     addedLines += part.value;
-    addCount += part.value.split(/\r?\n/).length;
+    let add = part.value.split('\n').filter(Boolean).length;
+    addCount += add;
+    totalAdd += add;
     } 
     else if (part.removed) {
         removedLines += part.value;
-        removeCount += part.value.split(/\r?\n/).length;
+        let remove = part.value.split('\n').filter(Boolean).length;
+        removeCount += remove;
+        totalRemove += remove;
     }
 });
 
-console.log("Changes in File " + fileVersion1Path + "\n");
-console.log(`Added-------> ${addCount} lines\n ${addedLines}` .green);
-console.log(`Removed-------> ${removeCount} lines\n ${removedLines}` .red);
+if (addCount > 0 || removeCount > 0) {
+  filePathArray = fileVersion1Path.split('\\');
+  filePath = filePathArray.slice(1).join("\\");
+  console.log("Changes in File " + filePath + "\n");
+  if (addCount > 0)
+    console.log(`Added-------> ${addCount} lines\n ${addedLines}` .green);
+  if (removeCount > 0)
+    console.log(`Removed-------> ${removeCount} lines\n ${removedLines}` .red);
 }
+
+}
+
 
 const folder1Path = 'tztail-v1/src';
 const folder2Path = 'tztail-v2/src';
-compareFolders(folder1Path, folder2Path);
+let totalAdd = 0, totalRemove = 0;
+compareFolders(folder1Path, folder2Path, totalAdd, totalRemove);
