@@ -167,22 +167,6 @@ impl Converter {
     }
 }
 
-// A function to test various formats
-fn _chrono(input: &str) -> String {
-    let dt = match DateTime::parse_from_str(input, "%Y-%m-%d %H:%M:%S %z") {
-        Ok(dt) => dt,
-        Err(err) => {
-            println!("Error: {}", err);
-            return String::from(input);
-        }
-    };
-    let local: DateTime<Local> = Local::now();
-    let tz = local.timezone();
-    return dt
-        .with_timezone(&tz)
-        .format("%Y-%m-%d %H:%M:%S %z")
-        .to_string();
-}
 
 #[cfg(test)]
 mod converter_tests {

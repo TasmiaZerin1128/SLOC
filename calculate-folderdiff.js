@@ -13,7 +13,7 @@ function compareFolders(folder1Path, folder2Path) {
     const file1Path = path.join(folder1Path, filelist1[i]);
     const stat1 = fs.statSync(file1Path);
     const file2Path = path.join(folder2Path, filelist2[i]);
-    const stats2 = fs.statSync(file2Path);
+    // const stats2 = fs.statSync(file2Path);
 
     if (stat1.isDirectory()) {
       // Recursively traverse subfolders
@@ -57,11 +57,11 @@ differences.forEach((part) => {
     }
 });
 
+console.log("Changes in File " + fileVersion1Path + "\n");
 console.log(`Added-------> ${addCount} lines\n ${addedLines}` .green);
 console.log(`Removed-------> ${removeCount} lines\n ${removedLines}` .red);
 }
 
-const folder1Path = 'tztail/src';
-const folder2Path = 'tztail copy/src';
-compareFolders(folder1Path);
-compareFolders(folder2Path);
+const folder1Path = 'tztail-v1/src';
+const folder2Path = 'tztail-v2/src';
+compareFolders(folder1Path, folder2Path);

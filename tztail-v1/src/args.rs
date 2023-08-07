@@ -45,19 +45,4 @@ impl ColorChoice {
             _ => ColorChoice::Auto,
         }
     }
-
-    // Builder for output formatter from a ColorChoice
-    pub fn build_formatter(&self) -> OutputFormatter {
-        match self {
-            ColorChoice::Auto => {
-                return if atty::is(Stream::Stdout) {
-                    OutputFormatter::colored()
-                } else {
-                    OutputFormatter::plain()
-                }
-            }
-            ColorChoice::Never => OutputFormatter::plain(),
-            ColorChoice::Always => OutputFormatter::colored(),
-        }
-    }
 }
