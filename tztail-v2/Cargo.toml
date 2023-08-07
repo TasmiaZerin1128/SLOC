@@ -1,0 +1,24 @@
+[package]
+name = "tztail"
+version = "1.2.0"
+authors = ["Aswin Karthik <aswinkarthik93@gmail.com>"]
+description = "tztail (TimeZoneTAIL) allows you to view logs in the timezone you want"
+license-file = "LICENSE-MIT"
+documentation = "https://github.com/thecasualcoder/tztail/blob/master/README.md"
+repository= "https://github.com/thecasualcoder/tztail"
+
+[dependencies]
+atty = "0.2"
+chrono = "0.4"
+chrono-tz = "0.5"
+colored = "1.6"
+regex = "1"
+
+[dependencies.clap]
+version = "2"
+features = ["suggestions", "color", "wrap_help"]
+
+[dev-dependencies]
+lazy_static = "1.2.0"
+escargot = "0.3.1"
+assert_cmd = "0.10.2"
