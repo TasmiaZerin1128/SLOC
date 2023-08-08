@@ -12,6 +12,8 @@
     "colors": "^1.4.0",
     "diff": "^5.1.0",
     "file-system": "^2.2.2",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "tree-sitter": "^0.20.5",
+    "tree-sitter-cli": "^0.20.8"
   }
 }

@@ -1,3 +1,4 @@
+
 struct Calculator {
     result: f64,
 }
@@ -35,4 +36,5 @@ fn main() {
     calculator.divide(4.0);
 
     println!("Result: {}", calculator.result);
+   
 }
